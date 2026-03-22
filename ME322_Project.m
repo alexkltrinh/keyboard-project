@@ -64,8 +64,16 @@ Fr_C = Ft_C*tand(30);
 
 Ft_D = T_gearD / (0.5* shaft_prop.D.diameter); % Force on gear D
 
-%Force Balance Calcs 
+%FB I 
+Bx = Fa_O;
+
+%FB II 
+
+
+
+
  
+%% Shear Moment and Moment Diagrams
 
 
 
