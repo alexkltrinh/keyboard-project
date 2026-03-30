@@ -7,11 +7,11 @@ shaft_prop = struct();
 
 %Material Properties 
 Sy = 525;  % MPa 
-Sut =  800; % MPA  
+Sut =  800; % MPa  
 
 %Gear Masses 
 shaft_prop.O.mass = 12500*10^-3;
-shaft_prop.C.mass = 2200*10^-3; 
+shaft_prop.C.mass = 22000*10^-3; 
 shaft_prop.D.mass = 10500 *10^-3; 
 
 
@@ -29,9 +29,9 @@ shaft_prop.distX.D = 0.625;    % Sprocket D (485mm + 140mm)
 
 %Critical Point Diameters 
 D = 38e-3 ; 
-shaft_prop.O.diameter = 0.275; 
+shaft_prop.O.diameter = 0.3; 
 shaft_prop.A.diameter =  7*D/6; 
-shaft_prop.C.diameter = 0.3; 
+shaft_prop.C.diameter = 0.275; 
 shaft_prop.B.diameter = 0.485; 
 shaft_prop.D.diameter = 0.250; 
 
@@ -64,14 +64,17 @@ Fr_C = Ft_C*tand(30);
 
 Ft_D = T_gearD / (0.5* shaft_prop.D.diameter); % Force on gear D
 
-%FB I 
+% Resultant Fx Force Balance 
 Bx = Fa_O;
 
-%FB II 
+% Resultant My,a Force Balance 
+Bz = (1/0.335)*(-0.15*Ft_O  + 0.2* Ft_C +0.435*Ft_D);
 
+% Resultant Fz Force Balance
+Az = -(-Ft_O + Bz - Ft_D - Ft_C);
 
-
-
+% Resultant Mz,A Force Balance 
+By = (1/0.335) * ((Fr_O - Wo)*0.15 - Mz_O + (Fr_C + Wc)*0.20 + Wd*0.435);
  
 %% Shear Moment and Moment Diagrams
 
