@@ -146,22 +146,30 @@ text(max_x - 40, max_M + 12, sprintf('Max M = %.2f N-m', max_M), 'FontSize', 11,
 %% Static Strength Analysis 
 
 %Stress Concentration Factors
+Kf_1 = %Radius 
+Kfs_1 = %Radius 
+Kf_2 = %Radius 
+Kfs_2 = %Radius 
 
 %Von Mises 
 
 %% Fatigue/Endurance Calculation
+fatigue_prop = struct();
+
 Se_0 = 0.5*Sut;
 
-a = 1.38; 
+a = 1.38;
 b = -0.067;
-
-ka = a*Sut^b;      %Surface finish 
-% kb = % Size Factor 
-kc = 1; % Load Factor 
-kd = 1; % Temperature Factor 
-
-
 Za = ((1.645-1.288)/5)*2 + 1.288;
-ke = 1 - 0.08*Za;        % Reliability factor
 
-% Se = ka*kb*kc*kd*ke*Se_0;
+% Build Marin factors as numeric values
+fatigue_prop.rel_factors = [];
+fatigue_prop.rel_factors(end+1) = a*Sut^b;                                  % ka surface
+fatigue_prop.rel_factors(end+1) = 1.51*(shaft_prop.O.diameter*10^3)^-0.157; % kb size
+fatigue_prop.rel_factors(end+1) = 1;                                        % kc load
+fatigue_prop.rel_factors(end+1) = 1;                                        % kd temperature
+fatigue_prop.rel_factors(end+1) = 1 - 0.08*Za;                              % ke reliability
+
+% Endurance limit
+Se = Se_0 * prod(fatigue_prop.rel_factors);
+fatigue_prop.Se = Se;
