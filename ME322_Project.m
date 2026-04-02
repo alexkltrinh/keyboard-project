@@ -11,14 +11,14 @@ Sut =  800; % MPa
 
 g = 9.81; 
 
-%Gear Masses 
+%Gear Masses
 shaft_prop.O.mass = 12500*10^-3;
 shaft_prop.C.mass = 22000*10^-3; 
 shaft_prop.D.mass = 10500 *10^-3; 
 
 
 %Angular Speed 
-w_TH = 600 + 15*(3+13);
+w_TH = 600 + 15*(20+8);
 w_TH_rad = (w_TH*2*pi/60);
 
 % Distances along the shaft from Gear O
